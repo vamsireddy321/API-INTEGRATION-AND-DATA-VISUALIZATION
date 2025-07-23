@@ -1,0 +1,29 @@
+import requests
+import matplotlib.pyplot as plt
+
+city = "Hyderabad"
+api_key = "043b5acab05f0beb649001bb1b6ef8b9"
+
+url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+
+response = requests.get(url)
+data = response.json()
+
+temperature = data['main']['temp']
+humidity = data['main']['humidity']
+wind_speed = data['wind']['speed']
+
+print(f"City: {city}")
+print(f"Temperature: {temperature} °C")
+print(f"Humidity: {humidity} %")
+print(f"Wind Speed: {wind_speed} m/s")
+
+labels = ['Temperature (°C)', 'Humidity (%)', 'Wind Speed (m/s)']
+values = [temperature, humidity, wind_speed]
+
+plt.bar(labels, values, color=['orange', 'blue', 'green'])
+plt.title(f"Weather Report for {city}")
+plt.ylabel("Values")
+plt.tight_layout()
+plt.savefig("/storage/emulated/0/pydroid3/weather_chart.png")
+plt.show()
